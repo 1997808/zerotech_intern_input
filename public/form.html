@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+    integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css"
+    integrity="sha512-1PKOgIY59xJ8Co8+NE6FZ+LOAZKjy+KY8iq0G4B3CyeY6wYHN3yt9PW0XpSriVlkMXe40PTKnXrLnZ9+fkDaog=="
+    crossorigin="anonymous" />
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-4 offset-4">
+        <div class="formContainer">
+          <form>
+            <div class="form-group">
+              <input type="text" class="form-control" id="InputName" onchange="nameChange()" placeholder="Enter Name">
+            </div>
+            <div class="form-group">
+              <input type="number" class="form-control" id="InputPhone" onchange="phoneChange()"
+                placeholder="Enter Phone">
+            </div>
+
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                onchange="genderChange()" value="male">
+              <label class="form-check-label" for="exampleRadios1">Male</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2"
+                onchange="genderChange()" value="female">
+              <label class="form-check-label" for="exampleRadios2">Female</label>
+            </div>
+            <br>
+            <button class="btn btn-primary" id="addBtn">Add</button>
+            <button class="btn btn-primary" id="editBtn">Apply</button>
+          </form>
+        </div>
+      </div>
+      <div class="col-12">
+        <table class="table" id="PhoneBook">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Phone</th>
+              <th scope="col">Gender</th>
+              <th scope="col">Func</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Mark</td>
+              <td>0943473</td>
+              <td>Male</td>
+              <td>
+                <button type="button" class="btn btn-success" id="editBtnFunc" onclick="editRow(this)"><i
+                    class="fas fa-edit"></i></button>
+                <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.getElementById("editBtn").style.visibility = "hidden"
+
+    var name = ""
+    var phone = ""
+    var gender = ""
+
+    function nameChange() {
+      name = document.getElementById("InputName").value
+    }
+    function phoneChange() {
+      phone = document.getElementById("InputPhone").value
+    }
+    function genderChange() {
+      if (document.getElementById("exampleRadios1").checked) {
+        gender = "Male"
+      } else gender = "Female"
+    }
+
+    document.getElementById("addBtn").addEventListener("click", function (event) {
+      var MyTable = document.getElementById("PhoneBook");
+
+      // insert new row. 
+      var NewRow = MyTable.insertRow();
+      var Newcell0 = NewRow.insertCell(0);
+      var Newcell1 = NewRow.insertCell(1);
+      var Newcell2 = NewRow.insertCell(2);
+      var Newcell3 = NewRow.insertCell(3);
+      Newcell0.innerHTML = name;
+      Newcell1.innerHTML = phone;
+      Newcell2.innerHTML = gender;
+      Newcell3.innerHTML = '<button type="button" class="btn btn-success" id="editBtnFunc" onclick="editRow(this)"><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="far fa-trash-alt"></i></button>'
+      event.preventDefault()
+    });
+
+    function deleteRow(r) {
+      var i = r.parentNode.parentNode.rowIndex;
+      document.getElementById("PhoneBook").deleteRow(i);
+    }
+
+    function editRow(r) {
+      document.getElementById('addBtn').style.visibility = 'hidden'
+      document.getElementById("editBtn").style.visibility = "visible"
+      var i = r.parentNode.parentNode;
+      // var oldName = i.cells[0].textContent
+      // var oldPhone = i.cells[1].textContent
+      // var oldGender = i.cells[2].textContent
+
+      name = i.cells[0].textContent
+      phone = i.cells[1].textContent
+      gender = i.cells[2].textContent
+
+      document.getElementById("InputName").value = name
+      document.getElementById("InputPhone").value = phone
+      gender === "Male" ? document.getElementById("exampleRadios1").checked = true : document.getElementById("exampleRadios2").checked = true
+
+      document.getElementById("editBtn").addEventListener("click", function (event) {
+        document.getElementById('addBtn').style.visibility = 'visible'
+        document.getElementById("editBtn").style.visibility = "hidden"
+
+        i.cells[0].textContent = name
+        i.cells[1].textContent = phone
+        i.cells[2].textContent = gender
+
+        event.preventDefault()
+      })
+    }
+
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+    integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+    integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+    crossorigin="anonymous"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+    integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+</body>
+
+<style>
+  .formContainer {
+    /* display: flex;
+    justify-content: center;
+    align-items: center; */
+    margin: 60px 0px;
+  }
+</style>
+
+</html>
