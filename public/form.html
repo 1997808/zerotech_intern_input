@@ -37,8 +37,8 @@
               <label class="form-check-label" for="exampleRadios2">Female</label>
             </div>
             <br>
-            <button class="btn btn-primary" id="addBtn">Add</button>
-            <button class="btn btn-primary" id="editBtn">Apply</button>
+            <button type="button" class="btn btn-primary" id="addBtn">Add</button>
+            <button type="button" class="btn btn-primary" id="editBtn">Apply</button>
           </form>
         </div>
       </div>
@@ -58,7 +58,7 @@
               <td>0943473</td>
               <td>Male</td>
               <td>
-                <button type="button" class="btn btn-success" id="editBtnFunc" onclick="editRow(this)"><i
+                <button type="button" class="btn btn-success" onclick="editRow(this)"><i
                     class="fas fa-edit"></i></button>
                 <button type="button" class="btn btn-danger" onclick="deleteRow(this)">
                   <i class="far fa-trash-alt"></i>
@@ -74,9 +74,10 @@
   <script>
     document.getElementById("editBtn").style.visibility = "hidden"
 
-    var userName = ""
-    var phone = ""
-    var gender = ""
+    let userName = ""
+    let phone = ""
+    let gender = ""
+    let seletedRow = null
 
     function nameChange() {
       userName = document.getElementById("InputName").value
@@ -91,55 +92,53 @@
     }
 
     document.getElementById("addBtn").addEventListener("click", function (event) {
-      var MyTable = document.getElementById("PhoneBook");
+      event.preventDefault()
+
+      let MyTable = document.getElementById("PhoneBook");
 
       // insert new row. 
-      var NewRow = MyTable.insertRow();
-      var Newcell0 = NewRow.insertCell(0);
-      var Newcell1 = NewRow.insertCell(1);
-      var Newcell2 = NewRow.insertCell(2);
-      var Newcell3 = NewRow.insertCell(3);
+      let NewRow = MyTable.insertRow();
+      let Newcell0 = NewRow.insertCell(0);
+      let Newcell1 = NewRow.insertCell(1);
+      let Newcell2 = NewRow.insertCell(2);
+      let Newcell3 = NewRow.insertCell(3);
       Newcell0.innerHTML = userName;
       Newcell1.innerHTML = phone;
       Newcell2.innerHTML = gender;
       Newcell3.innerHTML = '<button type="button" class="btn btn-success" id="editBtnFunc" onclick="editRow(this)"><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="far fa-trash-alt"></i></button>'
-      event.preventDefault()
     });
 
     function deleteRow(r) {
-      var i = r.parentNode.parentNode.rowIndex;
+      let i = r.parentNode.parentNode.rowIndex;
       document.getElementById("PhoneBook").deleteRow(i);
     }
 
     function editRow(r) {
-      console.log("editing", r)
+      let j = r.parentNode.parentNode.rowIndex;
+      seletedRow = r.parentNode.parentNode;
+
       document.getElementById('addBtn').style.visibility = 'hidden'
       document.getElementById("editBtn").style.visibility = "visible"
-      var i = r.parentNode.parentNode;
-      // var oldName = i.cells[0].textContent
-      // var oldPhone = i.cells[1].textContent
-      // var oldGender = i.cells[2].textContent
 
-      userName = i.cells[0].textContent
-      phone = i.cells[1].textContent
-      gender = i.cells[2].textContent
+      userName = seletedRow.cells[0].innerText
+      phone = seletedRow.cells[1].innerText
+      gender = seletedRow.cells[2].innerText
 
       document.getElementById("InputName").value = userName
       document.getElementById("InputPhone").value = phone
       gender === "Male" ? document.getElementById("exampleRadios1").checked = true : document.getElementById("exampleRadios2").checked = true
-
-      document.getElementById("editBtn").addEventListener("click", function (event) {
-        console.log("applying", i)
-        document.getElementById('addBtn').style.visibility = 'visible'
-        document.getElementById("editBtn").style.visibility = "hidden"
-
-        i.cells[0].textContent = userName
-        i.cells[1].textContent = phone
-        i.cells[2].textContent = gender
-
-        event.preventDefault()
-      })
     }
+
+    document.getElementById("editBtn").addEventListener("click", function (event) {
+      event.preventDefault()
+
+      document.getElementById('addBtn').style.visibility = 'visible'
+      document.getElementById("editBtn").style.visibility = "hidden"
+
+      seletedRow.cells[0].innerText = userName
+      seletedRow.cells[1].innerText = phone
+      seletedRow.cells[2].innerText = gender
+    })
 
   </script>
 
