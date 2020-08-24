@@ -74,12 +74,12 @@
   <script>
     document.getElementById("editBtn").style.visibility = "hidden"
 
-    var name = ""
+    var userName = ""
     var phone = ""
     var gender = ""
 
     function nameChange() {
-      name = document.getElementById("InputName").value
+      userName = document.getElementById("InputName").value
     }
     function phoneChange() {
       phone = document.getElementById("InputPhone").value
@@ -99,7 +99,7 @@
       var Newcell1 = NewRow.insertCell(1);
       var Newcell2 = NewRow.insertCell(2);
       var Newcell3 = NewRow.insertCell(3);
-      Newcell0.innerHTML = name;
+      Newcell0.innerHTML = userName;
       Newcell1.innerHTML = phone;
       Newcell2.innerHTML = gender;
       Newcell3.innerHTML = '<button type="button" class="btn btn-success" id="editBtnFunc" onclick="editRow(this)"><i class="fas fa-edit"></i></button> <button type="button" class="btn btn-danger" onclick="deleteRow(this)"><i class="far fa-trash-alt"></i></button>'
@@ -112,6 +112,7 @@
     }
 
     function editRow(r) {
+      console.log("editing", r)
       document.getElementById('addBtn').style.visibility = 'hidden'
       document.getElementById("editBtn").style.visibility = "visible"
       var i = r.parentNode.parentNode;
@@ -119,19 +120,20 @@
       // var oldPhone = i.cells[1].textContent
       // var oldGender = i.cells[2].textContent
 
-      name = i.cells[0].textContent
+      userName = i.cells[0].textContent
       phone = i.cells[1].textContent
       gender = i.cells[2].textContent
 
-      document.getElementById("InputName").value = name
+      document.getElementById("InputName").value = userName
       document.getElementById("InputPhone").value = phone
       gender === "Male" ? document.getElementById("exampleRadios1").checked = true : document.getElementById("exampleRadios2").checked = true
 
       document.getElementById("editBtn").addEventListener("click", function (event) {
+        console.log("applying", i)
         document.getElementById('addBtn').style.visibility = 'visible'
         document.getElementById("editBtn").style.visibility = "hidden"
 
-        i.cells[0].textContent = name
+        i.cells[0].textContent = userName
         i.cells[1].textContent = phone
         i.cells[2].textContent = gender
 
