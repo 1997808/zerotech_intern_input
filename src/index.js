@@ -1,12 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+// import App from './App';
+import FormReact from '../src/components/formReact'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <FormReact />
+    {/* <App /> */}
   </React.StrictMode>,
   document.getElementById('root')
 );
