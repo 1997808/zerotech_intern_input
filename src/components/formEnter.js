@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 export default function FormEnter(props) {
-  const { addData, editData, addStatus, setAddStatus } = props
+  const { addData, editData, addStatus, setAddStatus, applyEditData } = props
   const [userName, setUserName] = useState("")
   const [phone, setPhone] = useState("")
   const [gender, setGender] = useState("")
@@ -14,12 +14,6 @@ export default function FormEnter(props) {
 
   let newData = [userName, phone, gender]
 
-  const nameChange = (e) => {
-    setUserName(e.target.value)
-  }
-  const phoneChange = (e) => {
-    setPhone(e.target.value)
-  }
   const genderChange = (e) => {
     setGender(e.target.value)
   }
@@ -49,10 +43,10 @@ export default function FormEnter(props) {
     <div className="formContainer" style={{ margin: "30px 0" }}>
       <form>
         <div className="form-group">
-          <input type="text" className="form-control" id="InputName" onChange={(event) => nameChange(event)} defaultValue={userName} placeholder="Enter Name" />
+          <input type="text" className="form-control" id="InputName" onChange={(event) => setUserName(event.target.value)} defaultValue={userName} placeholder="Enter Name" />
         </div>
         <div className="form-group">
-          <input type="number" className="form-control" id="InputPhone" onChange={(event) => phoneChange(event)} defaultValue={phone} placeholder="Enter Phone" />
+          <input type="number" className="form-control" id="InputPhone" onChange={(event) => setPhone(event.target.value)} defaultValue={phone} placeholder="Enter Phone" />
         </div>
 
         <div className="form-check">
@@ -72,7 +66,7 @@ export default function FormEnter(props) {
         <br></br>
         {addStatus
           ? <button type="button" className="btn btn-primary" id="addBtn" onClick={(event) => addNewData(event)}>Add</button>
-          : <button type="button" className="btn btn-primary" id="editBtn" onClick={() => { setAddStatus(true) }}>Apply</button>
+          : <button type="button" className="btn btn-primary" id="editBtn" onClick={(event) => { applyEditData(event, newData); setAddStatus(true) }}>Apply</button>
         }
       </form>
     </div >
