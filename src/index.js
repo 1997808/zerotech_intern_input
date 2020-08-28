@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
-import FormPosts from '../src/api/formPosts'
+// import FormPosts from '../src/api/formPosts'
+import Auth from './api/admin/adminApi'
 // import FormReact from '../src/components/formReact'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <FormPosts />
+    <Auth />
+    {/* <FormPosts /> */}
     {/* <FormReact /> */}
     {/* <App /> */}
   </React.StrictMode>,
