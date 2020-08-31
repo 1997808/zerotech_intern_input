@@ -32,6 +32,7 @@ export default function DataTable(props) {
       if (item > i) {
         newRowArr.push(item - 1)
       } else newRowArr.push(item)
+      return null
     })
     setCheckedRow(newRowArr)
   }

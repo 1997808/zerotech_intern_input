@@ -11,11 +11,16 @@ export default function AdminApi(props) {
     version: "v3"
   });
 
+  const addPost = () => {
+    api.posts.add({
+      title: 'My first draft API post',
+    });
+  }
+
   useEffect(() => {
     api.posts
       .browse({ include: 'tags,authors' })
       .then((posts) => {
-        console.log(posts)
         setData(posts)
       })
       .catch((err) => {
@@ -26,10 +31,8 @@ export default function AdminApi(props) {
 
   return (
     <>
-      <div className="container">
-        <Header />
-        <Table data={data} />
-      </div>
+      <Header addPost={addPost} />
+      <Table data={data} />
     </>
   )
 }

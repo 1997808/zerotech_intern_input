@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function SignIn() {
+export default function FormValidation() {
   const classes = useStyles();
   const [inputs, setInputs] = useState("")
   const [allowNumber, setAllowNumber] = useState(false)
@@ -105,7 +105,6 @@ export default function SignIn() {
           />
           <Grid>
             <Button
-              sizeLarge
               variant="contained"
               color="primary"
               className={classes.submit}
@@ -117,7 +116,6 @@ export default function SignIn() {
 
           <Grid>
             <Button
-              sizeLarge
               variant="contained"
               color="secondary"
               className={classes.submit}
@@ -129,7 +127,6 @@ export default function SignIn() {
 
           <Grid>
             <Button
-              sizeLarge
               variant="contained"
               color="secondary"
               className={classes.submit}
@@ -141,7 +138,6 @@ export default function SignIn() {
 
           <Grid>
             <Button
-              sizeLarge
               variant="contained"
               color="primary"
               className={classes.submit}

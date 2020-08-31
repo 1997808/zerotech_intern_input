@@ -17,7 +17,7 @@ export default function Table(props) {
         <tbody>
           {data.map(item =>
             <tr>
-              <td><img src={item.feature_image} width={100} height={"auto"}></img></td>
+              <td><img src={item.feature_image} width={100} height={"auto"} alt="lmao"></img></td>
               <td>{item.title}</td>
               <td>{item.excerpt}</td>
               <td>{item.reading_time}</td>

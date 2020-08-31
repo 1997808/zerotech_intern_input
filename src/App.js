@@ -5,32 +5,42 @@ import {
   Route,
   Link
 } from "react-router-dom";
+import FormValidation from './components/formValidation/formMaterial'
+import FormReact from './components/formReact/formReact'
+import FormPosts from './components/content/formPosts'
+import CrudRouter from './components/admin/CrudRouter'
 
-export default function BasicExample() {
+export default function App() {
   return (
     <Router>
       <div>
-        <ul>
-          <li>
-            <Link to="/">Home</Link>
+        <ul class="nav justify-content-center" style={{ marginBottom: "60px" }}>
+          <li class="nav-item">
+            <Link className="nav-link" to="/">Home</Link>
           </li>
-          <li>
-            <Link to="/about">About</Link>
+          <li class="nav-item">
+            <Link className="nav-link" to="/form_validation">FormValidation</Link>
           </li>
-          <li>
-            <Link to="/dashboard">Dashboard</Link>
+          <li class="nav-item">
+            <Link className="nav-link" to="/form_posts">FormPosts</Link>
+          </li>
+          <li class="nav-item">
+            <Link className="nav-link" to="/form_react">FormReact</Link>
           </li>
         </ul>
 
         <Switch>
           <Route exact path="/">
-            <Home />
+            <CrudRouter />
           </Route>
-          <Route path="/about">
-            <About />
+          <Route path="/form_validation">
+            <FormValidation />
           </Route>
-          <Route path="/dashboard">
-            <Dashboard />
+          <Route path="/form_posts">
+            <FormPosts />
+          </Route>
+          <Route path="/form_react">
+            <FormReact />
           </Route>
         </Switch>
       </div>

@@ -1,4 +1,5 @@
 import React from 'react'
+
 import TableItem from './tableItem'
 
 export default function Table(props) {
@@ -15,7 +16,7 @@ export default function Table(props) {
       </thead>
       <tbody>
         {data.map(item =>
-          <TableItem item={item} />
+          <TableItem item={item} key={item.id} />
         )}
       </tbody>
     </table>
