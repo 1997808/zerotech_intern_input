@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import './index.css';
 // import App from './App';
 // import FormPosts from '../src/api/formPosts'
-import Auth from './api/admin/adminApi'
+import AdminApi from './components/admin/adminApi'
 // import FormReact from '../src/components/formReact'
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Auth />
+    <AdminApi />
     {/* <FormPosts /> */}
     {/* <FormReact /> */}
     {/* <App /> */}
