@@ -43,7 +43,8 @@ export default function AdminApi(props) {
       .browse({
         include: 'tags,authors',
         ...filterApi,
-        ...sortApi
+        ...sortApi,
+        // limit: 3
       })
       .then((posts) => {
         setData(posts)

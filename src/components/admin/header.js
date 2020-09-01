@@ -41,7 +41,7 @@ export default function Header(props) {
           </select>
         </div>
 
-        <Link to={"/post/" + "add"}>
+        <Link to={"/post/add"}>
           <button type="button" class="btn btn-success btn-sm" style={{ borderRadius: 0, marginLeft: "60px" }}>New Post</button>
         </Link>
       </div>
