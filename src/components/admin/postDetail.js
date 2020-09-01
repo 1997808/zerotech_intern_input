@@ -18,7 +18,6 @@ export default function PostDetail(props) {
   // const [excerpt, setExcerpt] = useState("insert text here")
   const { id } = useParams();
   let history = useHistory();
-  // let data = { title, status, excerpt }
 
   const onChange = (field, value) => {
     model[field] = value
@@ -79,7 +78,6 @@ export default function PostDetail(props) {
       })
       .then(() => history.push("/"))
   }
-  console.log('render')
 
   const { title, status, excerpt } = model
   return (
