@@ -13,22 +13,21 @@ import CrudRouter from './components/admin/CrudRouter'
 export default function App() {
   return (
     <Router>
+      <ul class="nav justify-content-center" style={{ marginBottom: "60px", fontSize: "10px" }}>
+        <li class="nav-item">
+          <Link className="nav-link" to="/">Home</Link>
+        </li>
+        <li class="nav-item">
+          <Link className="nav-link" to="/form_validation">FormValidation</Link>
+        </li>
+        <li class="nav-item">
+          <Link className="nav-link" to="/form_posts">FormPosts</Link>
+        </li>
+        <li class="nav-item">
+          <Link className="nav-link" to="/form_react">FormReact</Link>
+        </li>
+      </ul>
       <div>
-        <ul class="nav justify-content-center" style={{ marginBottom: "60px" }}>
-          <li class="nav-item">
-            <Link className="nav-link" to="/">Home</Link>
-          </li>
-          <li class="nav-item">
-            <Link className="nav-link" to="/form_validation">FormValidation</Link>
-          </li>
-          <li class="nav-item">
-            <Link className="nav-link" to="/form_posts">FormPosts</Link>
-          </li>
-          <li class="nav-item">
-            <Link className="nav-link" to="/form_react">FormReact</Link>
-          </li>
-        </ul>
-
         <Switch>
           <Route exact path="/">
             <CrudRouter />
@@ -44,6 +43,7 @@ export default function App() {
           </Route>
         </Switch>
       </div>
+
     </Router>
   );
 }

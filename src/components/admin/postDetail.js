@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from 'react'
 import {
-  useParams
+  useParams,
+  useHistory
 } from "react-router-dom";
 import GhostAdminAPI from '@tryghost/admin-api'
 
 export default function PostDetail(props) {
   const [title, setTitle] = useState("")
   const [status, setStatus] = useState("draft")
-  const [excerpt, setExcerpt] = useState(" ")
+  const [excerpt, setExcerpt] = useState("insert text here")
   const { id } = useParams();
+  let history = useHistory();
   // let data = { title, status, excerpt }
 
   const api = new GhostAdminAPI({
@@ -33,17 +35,38 @@ export default function PostDetail(props) {
 
   const sendPostData = (e) => {
     e.preventDefault()
-    var today = new Date().toISOString()
     api.posts
       .edit({
         id: id,
         title: title,
         status: status,
-        // excerpt: excerpt,
-        updated_at: today
+        excerpt: excerpt,
+        updated_at: new Date()
+        //.toISOString()
       })
       .then(res => console.log(res))
-      .catch(err => console.log(err));
+      .catch(err => console.log(err))
+      .then(() => history.push("/"))
+  }
+
+  const addPost = (e) => {
+    e.preventDefault()
+    api.posts
+      .add({
+        title: title,
+        status: status,
+        excerpt: excerpt,
+      })
+      .then(() => history.push("/"))
+  }
+
+  const deletePost = (e) => {
+    e.preventDefault()
+    api.posts
+      .delete({
+        id: id
+      })
+      .then(() => history.push("/"))
   }
 
   return (
@@ -63,13 +86,20 @@ export default function PostDetail(props) {
         </div>
         <div class="form-group">
           <label htmlFor="exampleFormControlTextarea1">Custom excerpt</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" onChange={event => setExcerpt(event.target.value)} value={excerpt}></textarea>
+          <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" onChange={event => setExcerpt(event.target.value)} value={excerpt}></textarea>
         </div>
         {/* <div class="form-group">
           <label htmlFor="exampleFormControlTextarea1">Updated at</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div> */}
-        <button type="button" className="btn btn-primary col-1" onClick={(event) => sendPostData(event)}>Edit</button>
+        {
+          id === "add"
+            ? <button type="button" className="btn btn-primary col-2 offset-5" onClick={(event) => addPost(event)}>Add Post</button>
+            : <>
+              <button type="button" className="btn btn-primary col-2 offset-4" onClick={(event) => sendPostData(event)}>Edit</button>
+              <button type="button" className="btn btn-primary col-2 offset-1" onClick={(event) => deletePost(event)}>Delete</button>
+            </>
+        }
       </form>
     </div>
   )
