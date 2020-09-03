@@ -6,13 +6,18 @@ import CartContext from "./context api/cartContext";
 
 export default function Header(props) {
   const { setStatus, setAuthor, setTag, setTime } = props
-  const cart = useContext(CartContext)[0];
-  console.log(cart)
+  // const cart = useContext(CartContext)[0];
+  const { items } = useContext(CartContext)
 
   return (
-    <div style={{ display: "flex", justifyContent: "space-between" }}>
+    <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
       <h2>Posts</h2>
-      <h4>{cart.length}</h4>
+      <Link to={"/cart"}>
+        <button className="btn btn-danger btn-sm" style={{ borderRadius: "0px", width: "50px", height: "31px", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          <i className="fas fa-shopping-cart"></i>
+          <span style={{ fontWeight: 600 }}>{items.length}</span>
+        </button>
+      </Link>
       <div className="d-flex justify-content-center align-items-center">
         <div className="btn-group">
           <select class="custom-select" id="inputGroupSelect02" style={styles.select} onChange={event => setStatus(event.target.value)}>

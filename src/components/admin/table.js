@@ -6,7 +6,7 @@ export default function Table(props) {
 
   const paging = []
   for (let i = 1; i < pagination + 1; i++) {
-    paging.push(<li class="page-item"><button class="page-link" value={i} onClick={(event) => setPage(event.target.value)}>{i}</button></li>)
+    paging.push(<li class="page-item" key={i}><button class="page-link" value={i} onClick={(event) => setPage(event.target.value)}>{i}</button></li>)
   }
 
   return (

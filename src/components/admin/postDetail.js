@@ -7,15 +7,12 @@ import GhostAdminAPI from '@tryghost/admin-api'
 
 let model = {
   title: "",
-  status: "",
+  status: "draft",
   excerpt: "",
 }
 
 export default function PostDetail(props) {
   const [update, setUpdate] = useState(false)
-  // const [title, setTitle] = useState("")
-  // const [status, setStatus] = useState("draft")
-  // const [excerpt, setExcerpt] = useState("insert text here")
   const { id } = useParams();
   let history = useHistory();
 
@@ -30,21 +27,19 @@ export default function PostDetail(props) {
   });
 
   useEffect(() => {
-    if (id === "add")
+    if (id !== "add") {
       api.posts
         .read({ id: id })
         .then(res => res)
         .then((post) => {
-          // setTitle(post.title)
-          // setStatus(post.status)
-          // setExcerpt(post.custom_excerpt)
           const { title, status, custom_excerpt } = post
-          model = { title, status, excerpt: custom_excerpt }
+          model = { title: title, status: status, excerpt: custom_excerpt }
           setUpdate(!update)
         })
         .catch((err) => {
           console.error(err);
         });
+    }
   }, [])
 
   const sendPostData = (e) => {
@@ -54,7 +49,7 @@ export default function PostDetail(props) {
         id: id,
         title: title,
         status: status,
-        excerpt: excerpt,
+        custom_excerpt: excerpt,
         updated_at: new Date().toISOString()
       })
       .then(res => console.log(res))
@@ -79,7 +74,7 @@ export default function PostDetail(props) {
       .then(() => history.push("/"))
   }
 
-  const { title, status, excerpt } = model
+  let { title, status, excerpt } = model
   return (
     <div>
       <form>
@@ -91,7 +86,6 @@ export default function PostDetail(props) {
           <label htmlFor="exampleFormControlSelect1">Status</label>
           <select class="form-control" id="exampleFormControlSelect1" onChange={event => onChange("status", event.target.value)} defaultValue={status}>
             <option>draft</option>
-            <option>hidden</option>
             <option>published</option>
           </select>
         </div>
@@ -99,10 +93,6 @@ export default function PostDetail(props) {
           <label htmlFor="exampleFormControlTextarea1">Custom excerpt</label>
           <textarea class="form-control" id="exampleFormControlTextarea1" rows="5" onChange={event => onChange("excerpt", event.target.value)} defaultValue={excerpt}></textarea>
         </div>
-        {/* <div class="form-group">
-          <label htmlFor="exampleFormControlTextarea1">Updated at</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
-        </div> */}
         {
           id === "add"
             ? <button type="button" className="btn btn-primary col-2 offset-5" onClick={(event) => addPost(event)}>Add Post</button>

@@ -1,13 +1,9 @@
 import React, { useContext } from 'react'
-import {
-  Link
-} from "react-router-dom";
-import CartContext from "./context api/cartContext";
+import CartContext from "./cartContext";
 
-export default function TableItem(props) {
+export default function CartItem(props) {
   const { item } = props
-  // const [cart, setCart] = useContext(CartContext);
-  const { items, addItem } = useContext(CartContext)
+  const { items, addItem } = useContext(CartContext);
 
   let author = ""
   let tag = ""
@@ -21,10 +17,8 @@ export default function TableItem(props) {
   return (
     <tr>
       <td>
-        <Link to={"/post/" + item.id}>
-          <p style={{ fontWeight: 600, margin: 0 }}>{item.title}</p>
-          <p style={{ fontSize: "12px", margin: 0 }}>{`By ${author} ${tag !== "" ? " in " + tag : ""}`}</p>
-        </Link>
+        <p style={{ fontWeight: 600, margin: 0 }}>{item.title}</p>
+        <p style={{ fontSize: "12px", margin: 0 }}>{`By ${author} ${tag !== "" ? " in " + tag : ""}`}</p>
       </td>
       <td><p style={{ display: "inline-block", background: "#ddd", color: "#666", padding: "2px", fontWeight: 600, fontSize: "12px", margin: 0 }}>{item.status.toUpperCase()}</p></td>
       <td>{Math.round((Date.now() - Date.parse(item.updated_at)) / 86400000) + " days ago"}</td>
@@ -33,11 +27,6 @@ export default function TableItem(props) {
           <input className="form-check-input" type="checkbox" value={item.id} checked={items.includes(item.id) ? true : false}
             onChange={() => {
               let { id } = item
-              // if (cart.includes(id)) {
-              //   let newCart = cart.filter(item => item !== id)
-              //   setCart(newCart)
-              // } else 
-              // setCart([...cart, item.id])
               addItem(id)
             }}
           />
