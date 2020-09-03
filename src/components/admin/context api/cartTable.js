@@ -1,18 +1,12 @@
 import React, { useEffect, useState, useContext } from 'react'
-import GhostAdminAPI from '@tryghost/admin-api'
 import CartItem from './cartItem'
 import CartContext from "./cartContext";
+import api from "../config/apiConfig"
 
 export default function CartTable(props) {
   const [cartData, setCartData] = useState([])
   // const cart = useContext(CartContext)[0];
   const { items, emptyCart } = useContext(CartContext)
-
-  const api = new GhostAdminAPI({
-    url: 'http://145.239.255.230:2368',
-    key: '5f3fe4a363f80d00015a9377:47e6710efb8b0d584869e6444fc0e38b689e2d33079995783a902603ea0dfd4f',
-    version: "v3"
-  });
 
   useEffect(() => {
     api.posts

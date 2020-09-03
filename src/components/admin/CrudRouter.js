@@ -13,7 +13,6 @@ export default function CrudRouter(props) {
   const [items, setItems] = useState([]);
 
   const emptyCart = () => {
-
     setItems([])
   }
 
