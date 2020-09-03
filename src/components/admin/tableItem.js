@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Link
 } from "react-router-dom";
+import CartContext from "./context api/cartContext";
 
 export default function TableItem(props) {
   const { item } = props
+  const [cart, setCart] = useContext(CartContext);
 
   let author = ""
   let tag = ""
@@ -25,6 +27,19 @@ export default function TableItem(props) {
       </td>
       <td><p style={{ display: "inline-block", background: "#ddd", color: "#666", padding: "2px", fontWeight: 600, fontSize: "12px", margin: 0 }}>{item.status.toUpperCase()}</p></td>
       <td>{Math.round((Date.now() - Date.parse(item.updated_at)) / 86400000) + " days ago"}</td>
+      <td className="d-flex justify-content-center">
+        <div className="form-check">
+          <input className="form-check-input" type="checkbox" value={item.id} checked={cart.includes(item.id) ? true : false}
+            onChange={() => {
+              let { id } = item
+              if (cart.includes(id)) {
+                let newCart = cart.filter(item => item !== id)
+                setCart(newCart)
+              } else setCart([...cart, item.id])
+            }}
+          />
+        </div>
+      </td>
     </tr>
   )
 }

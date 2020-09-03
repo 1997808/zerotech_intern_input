@@ -1,14 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import {
   Link
 } from "react-router-dom";
+import CartContext from "./context api/cartContext";
 
 export default function Header(props) {
   const { setStatus, setAuthor, setTag, setTime } = props
+  const cart = useContext(CartContext)[0];
+  console.log(cart)
 
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <h2>Posts</h2>
+      <h4>{cart.length}</h4>
       <div className="d-flex justify-content-center align-items-center">
         <div className="btn-group">
           <select class="custom-select" id="inputGroupSelect02" style={styles.select} onChange={event => setStatus(event.target.value)}>

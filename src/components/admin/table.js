@@ -1,5 +1,4 @@
 import React from 'react'
-
 import TableItem from './tableItem'
 
 export default function Table(props) {
@@ -18,6 +17,7 @@ export default function Table(props) {
             <th scope="col">Title</th>
             <th scope="col">Status</th>
             <th scope="col">Last Update</th>
+            <th scope="col">Checkbox</th>
           </tr>
         </thead>
         <tbody>

@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import GhostAdminAPI from '@tryghost/admin-api'
 import Header from './header'
 import Table from './table'
+import CartContext from './context api/cartContext'
 
 export default function AdminApi(props) {
   const [data, setData] = useState([])
   const [page, setPage] = useState(1)
   const [pagination, setPagination] = useState()
+
+  const cartHook = useState([]);
 
   const [status, setStatus] = useState("default")
   const [author, setAuthor] = useState("default")
@@ -56,8 +59,10 @@ export default function AdminApi(props) {
 
   return (
     <>
-      <Header setStatus={setStatus} setAuthor={setAuthor} setTag={setTag} setTime={setTime} />
-      <Table data={data} setPage={setPage} pagination={pagination} />
+      <CartContext.Provider value={cartHook}>
+        <Header setStatus={setStatus} setAuthor={setAuthor} setTag={setTag} setTime={setTime} />
+        <Table data={data} setPage={setPage} pagination={pagination} />
+      </CartContext.Provider>
     </>
   )
 }
