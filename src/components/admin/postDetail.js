@@ -5,19 +5,20 @@ import {
 } from "react-router-dom";
 import api from "./config/apiConfig"
 
-let model = {
-  title: "",
-  status: "draft",
-  excerpt: "",
-}
-
 export default function PostDetail(props) {
   const [update, setUpdate] = useState(false)
   const { id } = useParams();
   let history = useHistory();
 
+  let model = {
+    title: "",
+    status: "draft",
+    excerpt: "",
+  }
+
   const onChange = (field, value) => {
     model[field] = value
+    console.log(model)
   }
 
   useEffect(() => {
@@ -38,13 +39,15 @@ export default function PostDetail(props) {
 
   const sendPostData = (e) => {
     e.preventDefault()
+    let updated = new Date().toISOString()
+    console.log(model)
     api.posts
       .edit({
         id: id,
-        title: title,
-        status: status,
-        custom_excerpt: excerpt,
-        updated_at: new Date().toISOString()
+        title: model.title,
+        status: model.status,
+        custom_excerpt: model.excerpt,
+        updated_at: updated
       })
       .then(res => console.log(res))
       .catch(err => console.log(err))
@@ -52,7 +55,6 @@ export default function PostDetail(props) {
   }
 
   const addPost = (e) => {
-    console.log(model)
     e.preventDefault()
     api.posts
       .add(model)

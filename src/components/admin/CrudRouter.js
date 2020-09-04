@@ -8,12 +8,20 @@ import AdminApi from './adminApi'
 import PostDetail from './postDetail'
 import CartTable from './context api/cartTable'
 import CartContext from './context api/cartContext'
+import api from './config/apiConfig'
 
 export default function CrudRouter(props) {
   const [items, setItems] = useState([]);
 
   const emptyCart = () => {
+    console.log(items)
+    for (let id of items) {
+      api.posts.delete({
+        id: id
+      })
+    }
     setItems([])
+    // history.push("/")
   }
 
   const addItem = (id) => {
